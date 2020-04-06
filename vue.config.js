@@ -5,7 +5,7 @@ const resolve = dir => path.join(__dirname, dir)
 const BASE_URL = process.env.NODE_ENV === 'production' ? '/' : '/'
 module.exports = {
     lintOnSave: false,
-    baseUrl: BASE_URL,
+    publicPath: BASE_URL, //vue 3.0将baseUrl改为了publicPath
     chainWebpack: config => {
         config.resolve.alias
         .set('@', resolve('src'))
