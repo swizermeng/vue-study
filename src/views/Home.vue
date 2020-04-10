@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <div>{{food}}</div>
     <button @click="back">返回上一页</button>
     <button @click="jump">跳转到parent</button>
     <button @click="replace">替换到parent</button>
@@ -12,9 +13,25 @@
 
 export default {
   name: 'Home',
-  // components: {
-  //   HelloWorld
-  // }
+  props: {
+    food: {
+      type: String,
+      default: 'apple'
+    }
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      console.log(vm)
+    })
+  },
+  beforeRouteLeave(to, from, next) {
+    const leave = confirm('您确定要离开吗?')
+    if(leave) {
+      next()
+    } else {
+      next(false)
+    }
+  },
   methods: {
     back() {
       this.$router.back()

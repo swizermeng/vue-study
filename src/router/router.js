@@ -3,7 +3,23 @@ export default [
       path: '/',
       alias: '/home_page', // 别名
       name: 'Home', // 命名路由
-      component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue')
+      component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
+      props: route => ({
+        food: route.query.food
+      }),
+      beforeEnter: (to, from, next) => {
+        if(from.name == 'About') {
+          console.log('这是从about来的')
+        } else {
+          console.log('这不是从about来的')
+        }
+        next() //不调用的话不会跳转
+      }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/login.vue'),
     },
     {
       path: '/about',
@@ -11,12 +27,19 @@ export default [
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue')
+      component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+      props: {
+        // food: 'banna'
+      },
+      meta: {
+        title: '关于'
+      }
     },
     // 动态路由
     {
       path: '/argu/:name',
-      component: () => import('@/views/argu.vue')
+      component: () => import('@/views/argu.vue'),
+      props: true
     },
     // 嵌套路由
     {
@@ -43,5 +66,9 @@ export default [
     {
       path: '/main',
       redirect: to => '/parent'
+    },
+    {
+      path: '*',
+      component: () => import('@/views/error_404.vue')
     }
   ]
