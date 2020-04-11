@@ -7,7 +7,7 @@
     <transition-group :name='routerTransition'> 
       <router-view key='default'/>
       <router-view key='email' name="email"/>
-      <router-view key='email' name="tel"/>
+      <router-view key='tel' name="tel"/>
     </transition-group>
   </div>
 </template>
